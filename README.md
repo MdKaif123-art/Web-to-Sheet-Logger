@@ -2,14 +2,14 @@
 
 A Chrome extension that allows users to highlight text on any webpage and save it to a connected Google Sheet along with metadata.
 
-## Day 1 Setup
+## Day 1 Implementation
 
 ### Files Created
 - `manifest.json`: Extension configuration using Manifest V3
-- `popup.html`: Extension popup interface
-- `popup.js`: Popup functionality
-- `content.js`: Content script for text selection and floating button
-- `styles.css`: Styling for the extension
+- `popup.html`: Basic extension popup interface
+- `popup.js`: Simple popup functionality
+- `content.js`: Basic content script that logs to console
+- `icons/web-to-sheet-logger-icon.png`: Extension icon
 
 ### Permissions Used
 - `activeTab`: To access the current tab's content
@@ -26,11 +26,20 @@ A Chrome extension that allows users to highlight text on any webpage and save i
 ### Testing the Extension
 
 1. Click the extension icon to see the popup
-2. Navigate to any webpage
-3. Select some text to see the floating "Save to Sheet" button
-4. Check the browser console to see the logged data (text, URL, title, timestamp)
+2. Open any webpage
+3. Open the browser console (F12 or right-click -> Inspect -> Console)
+4. You should see the message: "Web-to-Sheet Logger content script loaded"
 
-### Known Limitations (Day 1)
-- Google Sheet connection not yet implemented
-- No error handling for failed saves
-- Basic UI without customization options 
+### Current Features (Day 1)
+- Basic extension structure
+- Extension popup
+- Content script loading confirmation
+- Extension icon
+
+### Next Steps
+- Day 2: Text selection and floating button implementation
+- Day 3: Metadata collection
+- Day 4: Google Apps Script integration
+- Day 5: Sheet connection
+- Day 6: Polish and edge cases
+- Day 7: Final demo and submission 
