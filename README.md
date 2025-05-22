@@ -36,10 +36,31 @@ A Chrome extension that allows users to highlight text on any webpage and save i
 - Content script loading confirmation
 - Extension icon
 
+---
+
+## Day 2 Implementation
+
+### Features Added
+- Detects and captures **selected text only**
+- Shows a floating **"Save to Sheet"** button near the selected text
+- On click, logs selected text in the console
+- No metadata or sheet connection yet
+
+### Files Modified
+- `content.js`: Now detects text selection and logs the selected content
+
+### Testing Instructions
+
+1. Open any webpage
+2. Select some text
+3. A “Save to Sheet” button appears
+4. Click it and check the browser console for the selected text
+
+---
+
 ### Next Steps
-- Day 2: Text selection and floating button implementation
-- Day 3: Metadata collection
+- Day 3: Metadata collection (page title, URL, timestamp)
 - Day 4: Google Apps Script integration
 - Day 5: Sheet connection
 - Day 6: Polish and edge cases
-- Day 7: Final demo and submission 
+- Day 7: Final demo and submission
