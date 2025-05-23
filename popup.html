@@ -4,33 +4,70 @@
   <title>Web-to-Sheet Logger</title>
   <style>
     body {
-      width: 300px;
+      width: 320px;
       padding: 15px;
       font-family: Arial, sans-serif;
+      margin: 0;
     }
     .container {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
     }
     h1 {
       font-size: 18px;
       margin: 0 0 15px 0;
       color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .status {
-      padding: 10px;
-      background-color: #f0f0f0;
-      border-radius: 4px;
+      padding: 12px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
       font-size: 14px;
+      line-height: 1.5;
+      color: #444;
+    }
+    .instructions {
+      margin-top: 10px;
+      padding: 12px;
+      background-color: #e8f0fe;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .instructions ol {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    .instructions li {
+      margin-bottom: 6px;
+    }
+    .icon {
+      width: 24px;
+      height: 24px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Web-to-Sheet Logger</h1>
+    <h1>
+      <img src="icons/web-to-sheet-logger-icon.png" alt="Logo" class="icon">
+      Web-to-Sheet Logger
+    </h1>
     <div class="status">
-      Select text on any webpage to save it to your Google Sheet.
+      Ready to capture highlights! Select any text on a webpage to begin.
+    </div>
+    <div class="instructions">
+      <strong>How to use:</strong>
+      <ol>
+        <li>Select text on any webpage</li>
+        <li>Click the "Save to Sheet" button that appears</li>
+        <li>Review the captured data in the popup</li>
+        <li>Click "Save to Sheet" to store in your Google Sheet</li>
+      </ol>
     </div>
   </div>
   <script src="popup.js"></script>

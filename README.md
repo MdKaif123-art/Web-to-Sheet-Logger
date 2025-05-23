@@ -53,13 +53,35 @@ A Chrome extension that allows users to highlight text on any webpage and save i
 
 1. Open any webpage
 2. Select some text
-3. A “Save to Sheet” button appears
+3. A "Save to Sheet" button appears
 4. Click it and check the browser console for the selected text
 
 ---
 
+## Day 3 Implementation
+
+### Features Added
+- **Metadata Collection:** Captures selected text, page title, page URL, and timestamp when saving.
+- **Preview Popup:** When you click "Save to Sheet," a confirmation popup appears showing all captured data for review before saving.
+- **Highlight Removal:** The text highlight is removed as soon as the preview popup appears, ensuring a clean user experience.
+- **Improved UX:** The floating button and popup are styled for clarity and usability. The button and popup disappear after saving or cancelling, and do not reappear unless new text is selected.
+
+### Files Modified
+- `content.js`: Now collects metadata, shows a preview popup, and removes highlight after selection.
+- `popup.html`: Improved instructions and status display.
+- `popup.js`: Handles status updates and connection checks.
+
+### Testing Instructions
+
+1. Open any webpage
+2. Select some text
+3. The "Save to Sheet" button appears near your selection
+4. Click the button to see a preview popup with all metadata
+5. Confirm or cancel; the popup and button will disappear, and the highlight will be removed
+
+---
+
 ### Next Steps
-- Day 3: Metadata collection (page title, URL, timestamp)
 - Day 4: Google Apps Script integration
 - Day 5: Sheet connection
 - Day 6: Polish and edge cases
