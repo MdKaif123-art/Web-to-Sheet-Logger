@@ -37,18 +37,4 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       }
     });
   }
-}); 
-
-document.getElementById('cancel-save').addEventListener('click', () => {
-  confirmationPopup.style.display = 'none';
-  window.getSelection().removeAllRanges();
-  saveButton.style.display = 'none';
-});
-
-document.getElementById('confirm-save').addEventListener('click', () => {
-  // TODO: Implement Google Sheets integration
-  console.log('Data to be saved:', data);
-  confirmationPopup.style.display = 'none';
-  window.getSelection().removeAllRanges();
-  saveButton.style.display = 'none';
 });
