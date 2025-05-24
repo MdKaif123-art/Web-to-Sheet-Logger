@@ -119,11 +119,68 @@ saveButton.addEventListener('click', () => {
     saveButton.style.display = 'none';
   });
 
-  document.getElementById('confirm-save').addEventListener('click', () => {
-    // TODO: Implement Google Sheets integration
-    console.log('Data to be saved:', data);
-    confirmationPopup.style.display = 'none';
-    saveButton.style.display = 'none';
+  document.getElementById('confirm-save').addEventListener('click', async () => {
+    try {
+      // Show loading state
+      const confirmButton = document.getElementById('confirm-save');
+      const originalText = confirmButton.textContent;
+      confirmButton.textContent = 'Saving...';
+      confirmButton.disabled = true;
+
+      // Send data to Google Apps Script
+      const response = await fetch('https://script.google.com/macros/s/AKfycbw0oyDX1ap_AMgzQJ6IiRqv3w9tFiCg5X4_ea4PThYfYm6FXDXKl4mp3F_YkfgOY-Se/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+
+      // Since we're using no-cors, we can't read the response
+      // Assume success if no error is thrown
+      const successMessage = document.createElement('div');
+      successMessage.textContent = 'Saved to Google Sheet!';
+      successMessage.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        z-index: 10000;
+      `;
+      document.body.appendChild(successMessage);
+      setTimeout(() => successMessage.remove(), 3000);
+
+    } catch (error) {
+      // Show error message
+      const errorMessage = document.createElement('div');
+      errorMessage.textContent = `Error: ${error.message}`;
+      errorMessage.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #f44336;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        z-index: 10000;
+      `;
+      document.body.appendChild(errorMessage);
+      setTimeout(() => errorMessage.remove(), 3000);
+    } finally {
+      // Reset button state
+      const confirmButton = document.getElementById('confirm-save');
+      confirmButton.textContent = 'Save to Sheet';
+      confirmButton.disabled = false;
+      
+      // Close popup and clear selection
+      confirmationPopup.style.display = 'none';
+      window.getSelection().removeAllRanges();
+      saveButton.style.display = 'none';
+    }
   });
 });
 

@@ -8,6 +8,9 @@
     "contextMenus",
     "storage"
   ],
+  "host_permissions": [
+    "https://script.google.com/macros/s/AKfycbw0oyDX1ap_AMgzQJ6IiRqv3w9tFiCg5X4_ea4PThYfYm6FXDXKl4mp3F_YkfgOY-Se/exec"
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icons/web-to-sheet-logger-icon.png"

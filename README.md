@@ -81,8 +81,41 @@ A Chrome extension that allows users to highlight text on any webpage and save i
 
 ---
 
+## Day 4 Implementation
+
+### Features Added
+- **Google Apps Script Integration:** Created a backend service to handle data storage
+- **Data Storage:** Implemented Google Sheets integration for saving highlights
+- **Error Handling:** Added proper error handling and user feedback
+- **CORS Configuration:** Set up proper cross-origin resource sharing
+
+### Files Modified
+- `content.js`: Added fetch request to Google Apps Script
+- `manifest.json`: Added host permissions for Google Apps Script
+
+### Google Apps Script Setup
+1. Created a Google Sheet with columns:
+   - Text
+   - URL
+   - Title
+   - Timestamp
+2. Implemented Apps Script with:
+   - POST endpoint for receiving data
+   - Data validation
+   - Error handling
+   - Success/error responses
+
+### Testing Instructions
+1. Open any webpage
+2. Select some text
+3. Click "Save to Sheet"
+4. Confirm in the preview popup
+5. Check your Google Sheet - a new row should be added with your data
+6. Verify success/error messages appear appropriately
+
+---
+
 ### Next Steps
-- Day 4: Google Apps Script integration
 - Day 5: Sheet connection
 - Day 6: Polish and edge cases
 - Day 7: Final demo and submission
