@@ -3,73 +3,14 @@
 <head>
     <title>Web-to-Sheet Logger</title>
     <style>
-        body {
-            width: 320px;
-            padding: 15px;
-            font-family: Arial, sans-serif;
-            margin: 0;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        h1 {
-            font-size: 18px;
-            margin: 0 0 15px 0;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .status {
-            padding: 12px;
-            background-color: #f8f9fa;
-            border-radius: 6px;
-            font-size: 14px;
-            line-height: 1.5;
-            color: #444;
-        }
-        .instructions {
-            margin-top: 10px;
-            padding: 12px;
-            background-color: #e8f0fe;
-            border-radius: 6px;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        .instructions ol {
-            margin: 8px 0;
-            padding-left: 20px;
-        }
-        .instructions li {
-            margin-bottom: 6px;
-        }
-        .icon {
-            width: 24px;
-            height: 24px;
-        }
+        body { font-family: Arial, sans-serif; min-width: 200px; padding: 16px; }
+        h1 { font-size: 18px; margin: 0 0 10px 0; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>
-            <img src="icons/web-to-sheet-logger-icon.png" alt="Logo" class="icon">
-            Web-to-Sheet Logger
-        </h1>
-        <div class="status">
-            Not connected to Google Sheet. Please set up connection.
-        </div>
-        <div class="instructions">
-            <strong>How to use:</strong>
-            <ol>
-                <li>Select text on any webpage</li>
-                <li>Click the "Save to Sheet" button that appears</li>
-                <li>Review the captured data in the popup</li>
-                <li>Click "Save to Sheet" to store in your Google Sheet</li>
-            </ol>
-        </div>
-    </div>
+    <h1>Web-to-Sheet Logger</h1>
+    <p>Extension Loaded!</p>
+    <div id="status"></div>
     <script src="popup.js"></script>
 </body>
 </html> 

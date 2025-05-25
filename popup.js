@@ -1,3 +1,6 @@
+console.log('Popup loaded');
+document.getElementById('status').textContent = 'Ready to capture highlights!';
+
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize popup
   console.log('Web-to-Sheet Logger popup initialized');

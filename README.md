@@ -115,7 +115,45 @@ A Chrome extension that allows users to highlight text on any webpage and save i
 
 ---
 
+## Day 5 Implementation
+
+### Features Added
+- **Full Integration:** The extension now fully connects the frontend (content script) to the backend (Google Apps Script Web App).
+- **POST Request:** When the user confirms saving a highlight, the extension sends a POST request with the selected text, page title, URL, and timestamp to the Apps Script endpoint.
+- **Success/Error Feedback:** The extension displays a success message if the data is saved, or an error message if something goes wrong.
+- **No Manifest URL Needed:** The Apps Script Web App URL is hardcoded in the content script; it does not need to be listed in the manifest.
+
+### How It Works
+1. User highlights text on any webpage.
+2. The floating "Save to Sheet" button appears near the selection.
+3. On clicking the button, a confirmation popup previews the data to be saved.
+4. When the user confirms, the extension sends a POST request to the Google Apps Script Web App URL:
+   - Example endpoint: `https://script.google.com/macros/s/AKfycbw0oyDX1ap_AMgzQJ6IiRqv3w9tFiCg5X4_ea4PThYfYm6FXDXKl4mp3F_YkfgOY-Se/exec`
+   - Data sent (JSON):
+     ```json
+     {
+       "text": "Selected text...",
+       "url": "https://example.com/page",
+       "title": "Page Title",
+       "timestamp": "2025-05-19T14:25:00"
+     }
+     ```
+5. The Apps Script receives the data and appends it as a new row in the connected Google Sheet.
+6. The extension shows a success or error message to the user.
+
+### Files Modified
+- `content.js`: Handles the POST request, user feedback, and error handling.
+- `manifest.json`: Ensures permissions for web requests and content scripts.
+
+### Testing Instructions
+1. Open any webpage.
+2. Select some text.
+3. Click the "Save to Sheet" button and confirm in the popup.
+4. Check your Google Sheet for the new entry.
+5. Observe the success or error message in the browser.
+
+---
+
 ### Next Steps
-- Day 5: Sheet connection
 - Day 6: Polish and edge cases
 - Day 7: Final demo and submission

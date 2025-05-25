@@ -2,15 +2,19 @@
   "manifest_version": 3,
   "name": "Web-to-Sheet Logger",
   "version": "1.0",
-  "description": "Highlight text on web pages and save to Google Sheets",
+  "description": "Highlight text on any webpage and save it to Google Sheets with metadata.",
   "permissions": [
     "activeTab",
+    "scripting",
     "contextMenus",
     "storage"
   ],
   "host_permissions": [
-    "https://script.google.com/macros/s/AKfycbw0oyDX1ap_AMgzQJ6IiRqv3w9tFiCg5X4_ea4PThYfYm6FXDXKl4mp3F_YkfgOY-Se/exec"
+    "<all_urls>"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icons/web-to-sheet-logger-icon.png"
@@ -18,10 +22,14 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "run_at": "document_end"
     }
   ],
   "icons": {
-    "48": "icons/web-to-sheet-logger-icon.png"
+    "16": "icons/web-to-sheet-logger-icon.png",
+    "32": "icons/web-to-sheet-logger-icon.png",
+    "48": "icons/web-to-sheet-logger-icon.png",
+    "128": "icons/web-to-sheet-logger-icon.png"
   }
-} 
+}
