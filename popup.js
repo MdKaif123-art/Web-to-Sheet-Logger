@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Check if we're connected to a Google Sheet
   chrome.storage.local.get(['sheetConnected'], function(result) {
-    const statusDiv = document.querySelector('.status');
+    const statusDiv = document.getElementById('status');
     if (result.sheetConnected) {
       statusDiv.textContent = 'Connected to Google Sheet. Select text to save.';
     } else {
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Listen for messages from content script
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.type === 'status') {
-    const statusElement = document.querySelector('.status');
+    const statusElement = document.getElementById('status');
     if (statusElement) {
       statusElement.textContent = message.text;
     }
@@ -33,7 +33,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(currentTab.id, { type: 'getStatus' }, (response) => {
       if (chrome.runtime.lastError) {
         // Content script not ready yet
-        const statusElement = document.querySelector('.status');
+        const statusElement = document.getElementById('status');
         if (statusElement) {
           statusElement.textContent = 'Extension is ready. Select text on any webpage to begin.';
         }
