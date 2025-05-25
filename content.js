@@ -143,7 +143,7 @@ saveButton.addEventListener('click', () => {
       successMessage.textContent = 'Saved to Google Sheet!';
       successMessage.style.cssText = `
         position: fixed !important;
-        top: 20px !important;
+        top: 80px !important;
         right: 20px !important;
         background: #4CAF50 !important;
         color: white !important;
