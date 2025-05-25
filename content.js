@@ -142,14 +142,19 @@ saveButton.addEventListener('click', () => {
       const successMessage = document.createElement('div');
       successMessage.textContent = 'Saved to Google Sheet!';
       successMessage.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 4px;
-        z-index: 10000;
+        position: fixed !important;
+        top: 20px !important;
+        right: 20px !important;
+        background: #4CAF50 !important;
+        color: white !important;
+        padding: 12px 24px !important;
+        border-radius: 6px !important;
+        border: 2px solid #fff !important;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 0 4px rgba(76,175,80,0.15) !important;
+        font-size: 18px !important;
+        font-family: Arial, sans-serif !important;
+        z-index: 2147483647 !important;
+        pointer-events: none !important;
       `;
       document.body.appendChild(successMessage);
       setTimeout(() => successMessage.remove(), 3000);
