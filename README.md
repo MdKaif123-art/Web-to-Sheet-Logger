@@ -2,6 +2,21 @@
 
 A Chrome extension that allows users to highlight text on any webpage and save it to a connected Google Sheet along with metadata.
 
+---
+
+## Features (Up to Day 6)
+- Highlight text on any webpage and save it to Google Sheets
+- Floating "Save to Sheet" button appears near selected text
+- **Context menu**: Right-click selected text and choose "Save selection to Sheet"
+- Collects metadata: selected text, page title, page URL, and timestamp
+- Confirmation popup previews all data before saving
+- Sends data to Google Apps Script Web App (Google Sheet backend)
+- Success and error messages always visible (even with sticky navbars)
+- Handles edge cases and cleans up UI after save/cancel
+- Works on most websites and tested for robustness
+
+---
+
 ## Day 1 Implementation
 
 ### Files Created
@@ -154,6 +169,47 @@ A Chrome extension that allows users to highlight text on any webpage and save i
 
 ---
 
-### Next Steps
-- Day 6: Polish and edge cases
+## Day 6 Implementation
+
+### Features Added & Polish
+- **Context Menu Support:**
+  - Right-click any selected text and choose "Save selection to Sheet" to trigger the save flow.
+- **UI Polish & Edge Cases:**
+  - Success/error messages always visible (appear below navbars)
+  - Button and popup never get stuck or hidden
+  - Popup and button disappear after save/cancel
+  - Prevents UI interference with page content
+  - Tested on various websites (news, blogs, etc.)
+- **Validation:**
+  - Only non-empty selections can be saved
+  - Confirmation popup always shows all metadata
+
+### Files Modified
+- `background.js`: Adds context menu and handles context menu actions
+- `content.js`: Handles context menu messages, UI polish, and edge cases
+- `manifest.json`: Ensures permissions for context menus and content scripts
+- `popup.html`, `popup.js`: Status and instructions
+
+### Testing Instructions
+1. Open any webpage
+2. Select some text
+3. Use either:
+   - The floating "Save to Sheet" button near your selection
+   - Or right-click and choose "Save selection to Sheet"
+4. Confirm in the popup
+5. Check your Google Sheet for the new entry
+6. Observe the success or error message in the browser
+
+---
+
+## Demo Video (for Day 7)
+- Show loading the extension
+- Highlighting text and saving via button and context menu
+- Confirmation popup and metadata preview
+- Google Sheet updating in real time
+- Success/error messages
+
+---
+
+## Next Steps
 - Day 7: Final demo and submission

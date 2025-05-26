@@ -195,3 +195,96 @@ document.addEventListener('click', (event) => {
     confirmationPopup.style.display = 'none';
   }
 });
+
+// Listen for messages from background (context menu)
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === 'contextMenuSave' && message.text) {
+    // Prepare data for confirmation popup
+    const data = {
+      text: message.text,
+      url: window.location.href,
+      title: document.title,
+      timestamp: new Date().toISOString()
+    };
+    confirmationPopup.innerHTML = createConfirmationContent(data);
+    confirmationPopup.style.display = 'block';
+    saveButton.style.display = 'none';
+
+    // Remove highlight if any
+    window.getSelection().removeAllRanges();
+
+    // Add event listeners for confirmation buttons
+    document.getElementById('cancel-save').addEventListener('click', () => {
+      confirmationPopup.style.display = 'none';
+      saveButton.style.display = 'none';
+    });
+
+    document.getElementById('confirm-save').addEventListener('click', async () => {
+      try {
+        // Show loading state
+        const confirmButton = document.getElementById('confirm-save');
+        const originalText = confirmButton.textContent;
+        confirmButton.textContent = 'Saving...';
+        confirmButton.disabled = true;
+
+        // Send data to Google Apps Script
+        const response = await fetch('https://script.google.com/macros/s/AKfycbw0oyDX1ap_AMgzQJ6IiRqv3w9tFiCg5X4_ea4PThYfYm6FXDXKl4mp3F_YkfgOY-Se/exec', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+
+        // Since we're using no-cors, we can't read the response
+        // Assume success if no error is thrown
+        const successMessage = document.createElement('div');
+        successMessage.textContent = 'Saved to Google Sheet!';
+        successMessage.style.cssText = `
+          position: fixed !important;
+          top: 80px !important;
+          right: 20px !important;
+          background: #4CAF50 !important;
+          color: white !important;
+          padding: 12px 24px !important;
+          border-radius: 6px !important;
+          border: 2px solid #fff !important;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 0 4px rgba(76,175,80,0.15) !important;
+          font-size: 18px !important;
+          font-family: Arial, sans-serif !important;
+          z-index: 2147483647 !important;
+          pointer-events: none !important;
+        `;
+        document.body.appendChild(successMessage);
+        setTimeout(() => successMessage.remove(), 3000);
+
+      } catch (error) {
+        // Show error message
+        const errorMessage = document.createElement('div');
+        errorMessage.textContent = `Error: ${error.message}`;
+        errorMessage.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: #f44336;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 4px;
+          z-index: 10000;
+        `;
+        document.body.appendChild(errorMessage);
+        setTimeout(() => errorMessage.remove(), 3000);
+      } finally {
+        // Reset button state
+        const confirmButton = document.getElementById('confirm-save');
+        confirmButton.textContent = 'Save to Sheet';
+        confirmButton.disabled = false;
+        // Close popup and clear selection
+        confirmationPopup.style.display = 'none';
+        window.getSelection().removeAllRanges();
+        saveButton.style.display = 'none';
+      }
+    });
+  }
+});
