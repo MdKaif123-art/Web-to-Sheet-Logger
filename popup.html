@@ -81,57 +81,19 @@
       <div style="margin-top:10px;">
         <ol style="font-size:13px;line-height:1.7;margin-bottom:10px;">
           <li>Open your Google Sheet and go to <b>Extensions &gt; Apps Script</b>.</li>
-          <li>Paste the code below and save.</li>
+          <li>Paste the code (use the button below to copy) and save.</li>
           <li>Click the <b>Deploy</b> <span style="font-size:15px;">&#9881;&#65039;</span> (gear) icon at the top right, then select <b>Web app</b>.</li>
           <li>Enter the description as <b>Web-to-Sheet Logger</b>.</li>
           <li>Set access to <b>Anyone</b> and deploy. Authorize if prompted.</li>
           <li>Copy the Web App URL (2nd URL ends with <code>/exec</code>) and add it above.</li>
         </ol>
-        <div style="position:relative;">
-          <pre id="script-code" style="background:#f5f5f5;padding:10px 8px 10px 10px;border-radius:6px;overflow-x:auto;font-size:12px;">function doPost(e) {
-  try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    const data = JSON.parse(e.postData.contents);
-    if (!data.text || !data.url || !data.title || !data.timestamp) {
-      return ContentService.createTextOutput(JSON.stringify({
-        'status': 'error',
-        'message': 'Missing required fields'
-      })).setMimeType(ContentService.MimeType.JSON);
-    }
-    // If the sheet is empty, add the header row
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Text', 'Url', 'Title', 'Timestamp', 'Tag']);
-    }
-    sheet.appendRow([
-      data.text,
-      data.url,
-      data.title,
-      data.timestamp,
-      data.tag || ''
-    ]);
-    return ContentService.createTextOutput(JSON.stringify({
-      'status': 'success',
-      'message': 'Data saved successfully'
-    })).setMimeType(ContentService.MimeType.JSON);
-  } catch (error) {
-    return ContentService.createTextOutput(JSON.stringify({
-      'status': 'error',
-      'message': error.toString()
-    })).setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function doGet(e) {
-  return ContentService.createTextOutput(JSON.stringify({
-    'status': 'error',
-    'message': 'Please use POST method'
-  })).setMimeType(ContentService.MimeType.JSON);
-}
-</pre>
-          <button id="copy-script-btn" style="position:absolute;top:8px;right:8px;padding:4px 10px;font-size:12px;border-radius:4px;border:none;background:#4285F4;color:#fff;cursor:pointer;">Copy Script</button>
-        </div>
       </div>
     </details>
+    <div id="script-section" style="margin-top:20px;">
+      <h3>Google Apps Script</h3>
+      <button id="copy-script-btn" style="padding:8px 16px;font-size:14px;border-radius:4px;border:none;background:#4285F4;color:#fff;cursor:pointer;">Copy Script</button>
+      <span id="copy-success-msg" style="display:none;margin-left:12px;color:#34A853;font-size:14px;font-weight:500;">Script copied!</span>
+    </div>
     <script src="popup.js"></script>
 </body>
 </html> 

@@ -1,5 +1,46 @@
 console.log('Popup loaded');
 
+// The Google Apps Script code to copy
+const scriptCode = `function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = JSON.parse(e.postData.contents);
+    if (!data.text || !data.url || !data.title || !data.timestamp) {
+      return ContentService.createTextOutput(JSON.stringify({
+        'status': 'error',
+        'message': 'Missing required fields'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    // If the sheet is empty, add the header row with Tag as the last column
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['Text', 'Url', 'Title', 'Timestamp', 'Tag']);
+    }
+    sheet.appendRow([
+      data.text,
+      data.url,
+      data.title,
+      data.timestamp,
+      data.tag || ''
+    ]);
+    return ContentService.createTextOutput(JSON.stringify({
+      'status': 'success',
+      'message': 'Data saved successfully'
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      'status': 'error',
+      'message': error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    'status': 'error',
+    'message': 'Please use POST method'
+  })).setMimeType(ContentService.MimeType.JSON);
+}`;
+
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('status').textContent = 'Ready to capture highlights!';
   // Initialize popup
@@ -125,12 +166,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Copy Script button logic
   const copyBtn = document.getElementById('copy-script-btn');
+  const copyMsg = document.getElementById('copy-success-msg');
   if (copyBtn) {
     copyBtn.addEventListener('click', function() {
-      const code = document.getElementById('script-code').innerText;
-      navigator.clipboard.writeText(code).then(() => {
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => { copyBtn.textContent = 'Copy Script'; }, 1200);
+      navigator.clipboard.writeText(scriptCode).then(() => {
+        if (copyMsg) {
+          copyMsg.style.display = 'inline';
+          setTimeout(() => { copyMsg.style.display = 'none'; }, 2000);
+        } else {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(() => { copyBtn.textContent = 'Copy Script'; }, 1200);
+        }
       });
     });
   }
