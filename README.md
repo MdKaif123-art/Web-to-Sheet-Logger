@@ -213,3 +213,65 @@ A Chrome extension that allows users to highlight text on any webpage and save i
 
 ## Next Steps
 - Day 7: Final demo and submission
+
+---
+
+## Google Apps Script (Copy & Deploy)
+
+<div>
+  <pre id="script-code" style="background:#f5f5f5;padding:12px;border-radius:6px;overflow-x:auto;">
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = JSON.parse(e.postData.contents);
+    if (!data.text || !data.url || !data.title || !data.timestamp) {
+      return ContentService.createTextOutput(JSON.stringify({
+        'status': 'error',
+        'message': 'Missing required fields'
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    // If the sheet is empty, add the header row
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['Text', 'Url', 'Title', 'Timestamp']);
+    }
+    sheet.appendRow([
+      data.text,
+      data.url,
+      data.title,
+      data.timestamp
+    ]);
+    return ContentService.createTextOutput(JSON.stringify({
+      'status': 'success',
+      'message': 'Data saved successfully'
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      'status': 'error',
+      'message': error.toString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    'status': 'error',
+    'message': 'Please use POST method'
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+  </pre>
+  <button onclick="navigator.clipboard.writeText(document.getElementById('script-code').innerText)">Copy Script</button>
+</div>
+
+### How to Deploy
+1. Open your Google Sheet and go to Extensions > Apps Script.
+2. Paste the code above and save.
+3. Click Deploy > New deployment > Select type: Web app.
+4. Set access to Anyone and deploy. Authorize if prompted.
+5. Copy the Web App URL (ends with /exec) and add it to your extension.
+
+### Troubleshooting: Data Not Saving
+- Make sure you deployed as a Web App and set access to Anyone.
+- Use the correct Web App URL (ends with /exec).
+- Your sheet should have columns for Text, URL, Title, Timestamp.
+- Check Apps Script Executions for errors.
+- Test with Postman or curl if needed.
